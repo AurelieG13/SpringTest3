@@ -3,22 +3,19 @@ package com.aguichardon.springtest3.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "sport")
-@Data
 @Getter
 @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Sport {
+public class Panier {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
-    private int nbSeat;
-    private double price;
-    private String description;
-
 
 }

@@ -19,7 +19,6 @@ public class AuthenticationService {
     private JwtService jwtService;
     private BCryptPasswordEncoder passwordEncoder;
 
-
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
 
         authenticationManager.authenticate(

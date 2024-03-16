@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/contact")
 public class ContactController {
 
-    private EmailService emailService;
+    private final EmailService emailService;
+
+    public ContactController(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
     @PostMapping("/send-email")
     public ResponseEntity<HttpStatus> sendEmail(@RequestBody EmailRequest emailRequest) {

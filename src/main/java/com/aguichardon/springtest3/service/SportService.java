@@ -8,7 +8,12 @@ import java.util.List;
 
 @Service
 public class SportService {
-    private SportRepository sportRepository;
+    private final SportRepository sportRepository;
+
+
+    public SportService(SportRepository sportRepository) {
+        this.sportRepository = sportRepository;
+    }
 
     public Sport createSport(Sport sport) {
         return sportRepository.save(sport);

@@ -18,8 +18,11 @@ public class JwtAppConfig {
      * Authentification de l'utilisateur depuis la base de données
      */
 
-    @Autowired
-    private AuthRepository authRepository;
+    private final AuthRepository authRepository;
+
+    public JwtAppConfig(AuthRepository authRepository) {
+        this.authRepository = authRepository;
+    }
 
     @Bean
     UserDetailsService userDetailsService() {

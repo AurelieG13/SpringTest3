@@ -48,17 +48,21 @@ public class SecurityConfig {
             auth
                     //Permettre l'accès à l'URL racine à tout le monde
                     .requestMatchers("/api/sports").permitAll()
+                    .requestMatchers("/api/sports/all").permitAll()
                     .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/api/ticketing/**").permitAll()
                     .requestMatchers("/api/users/saveUser").permitAll()
+
                     //Permettre aux rôles EMPLOYE et ADMIN de manipuler les URLs en GET
 
-                    .requestMatchers(HttpMethod.GET, "/api/sports/all").hasAnyRole("EMPLOYE","ADMIN") //Restreindre la manipulation des méthodes POST, PUT, PATCH et DELETE au rôle ADMIN
+                    //Restreindre la manipulation des méthodes POST, PUT, PATCH et DELETE au rôle ADMIN
                     .requestMatchers(HttpMethod.POST, "/api/sports/create").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/api/sports/save").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/api/sports").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PATCH, "/api/sports").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/api/sports").hasRole("ADMIN") //Toutes autres url et méthodes HTTP ne sont pas permises
+                    .requestMatchers(HttpMethod.DELETE, "/api/sports").hasRole("ADMIN")
+
+                    //Toutes autres url et méthodes HTTP ne sont pas permises si on met .denyall() au lieu de permitAll()
                     .anyRequest().permitAll();
         });
 
