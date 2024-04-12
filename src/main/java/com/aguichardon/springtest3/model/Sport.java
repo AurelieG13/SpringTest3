@@ -16,7 +16,7 @@ public class Sport {
     private Long id;
 
     private String name;
-    private int nbSeat;
+    private int nbSeat = 1;
     private double price;
     private String description;
 

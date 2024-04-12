@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig{
     protected final Log logger = LogFactory.getLog(getClass());
 
     @Autowired
