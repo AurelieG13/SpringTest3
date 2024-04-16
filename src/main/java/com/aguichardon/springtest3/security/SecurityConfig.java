@@ -1,5 +1,6 @@
 package com.aguichardon.springtest3.security;
 
+import com.aguichardon.springtest3.service.CustomUserDetailsService;
 import jakarta.servlet.Filter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -8,9 +9,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -26,6 +29,7 @@ public class SecurityConfig{
 
     @Autowired
     private AuthenticationProvider authenticationProvider;
+
 
     /**
      *
@@ -52,8 +56,9 @@ public class SecurityConfig{
                     .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/api/ticketing/**").permitAll()
                     .requestMatchers("/api/users/saveUser").permitAll()
-
+                    .requestMatchers("/api/users/currentUser").permitAll()
                     //Permettre aux rôles EMPLOYE et ADMIN de manipuler les URLs en GET
+                    .requestMatchers(HttpMethod.GET,"/api/users/currentUser").permitAll()
 
                     //Restreindre la manipulation des méthodes POST, PUT, PATCH et DELETE au rôle ADMIN
                     .requestMatchers(HttpMethod.POST, "/api/sports/create").hasRole("ADMIN")

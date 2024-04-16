@@ -1,6 +1,7 @@
 package com.aguichardon.springtest3.service;
 
 import com.aguichardon.springtest3.dto.AuthDTO;
+import com.aguichardon.springtest3.dto.UserAuthDTO;
 import com.aguichardon.springtest3.dto.UserDTO;
 import com.aguichardon.springtest3.model.User;
 import com.aguichardon.springtest3.model.UserAuth;
@@ -37,6 +38,16 @@ public class UserMapperService {
         //save bdd
         User saveEntityUser = userRepository.save(entityUser);
         authenticationService.register(authDTO);
+    }
+
+    public UserDTO mapUserToDTO(User user) {
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return modelMapper.map(user, UserDTO.class);
+    }
+
+    public UserDTO getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email); // Remplacez findByUsername par la méthode appropriée pour récupérer l'utilisateur par son nom d'utilisateur
+        return mapUserToDTO(user);
     }
 
 }

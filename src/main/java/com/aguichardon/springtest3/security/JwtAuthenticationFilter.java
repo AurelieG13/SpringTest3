@@ -1,6 +1,7 @@
 package com.aguichardon.springtest3.security;
 
 import com.aguichardon.springtest3.security.jwt.JwtService;
+import com.aguichardon.springtest3.service.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
