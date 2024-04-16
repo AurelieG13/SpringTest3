@@ -65,6 +65,25 @@ public class UserController {
         }
     }
 
+    @PutMapping("/admin/{id}")
+    public ResponseEntity<User> updateUserAdmin(@PathVariable Long id, @RequestBody User updatedUser) {
+        User existingUser = userService.findById(id);
+        if (existingUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Mettez à jour les champs de l'utilisateur existant avec les nouvelles valeurs
+        existingUser.setFirstname(updatedUser.getFirstname());
+        existingUser.setLastname(updatedUser.getLastname());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setPhone(updatedUser.getPhone());
+
+        // Enregistrez les modifications dans la base de données
+        userService.save(existingUser);
+
+        return ResponseEntity.ok(existingUser);
+    }
+
 
 }
 
