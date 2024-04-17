@@ -59,6 +59,7 @@ public class SecurityConfig{
                     .requestMatchers("/api/users/currentUser").permitAll()
                     //Permettre aux rôles EMPLOYE et ADMIN de manipuler les URLs en GET
                     .requestMatchers(HttpMethod.GET,"/api/users/currentUser").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/commande").hasRole("ADMIN")
 
                     //Restreindre la manipulation des méthodes POST, PUT, PATCH et DELETE au rôle ADMIN
                     .requestMatchers(HttpMethod.POST, "/api/sports/create").hasRole("ADMIN")
@@ -66,6 +67,9 @@ public class SecurityConfig{
                     .requestMatchers(HttpMethod.PUT, "/api/sports").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PATCH, "/api/sports").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/api/sports").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/commande").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/commande").hasRole("ADMIN")
+
 
                     //Toutes autres url et méthodes HTTP ne sont pas permises si on met .denyall() au lieu de permitAll()
                     .anyRequest().permitAll();
