@@ -1,5 +1,6 @@
 package com.aguichardon.springtest3.controller;
 
+import com.aguichardon.springtest3.dto.AuthDTO;
 import com.aguichardon.springtest3.dto.UserAuthDTO;
 import com.aguichardon.springtest3.dto.UserDTO;
 import com.aguichardon.springtest3.model.Sport;
@@ -46,11 +47,34 @@ public class UserController {
         }
     }
 
+   /* @GetMapping("/currentUser")
+    public ResponseEntity<HttpStatus> getCurrentUser() {
+        try {
+            Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+            String email = authentication.getName();
+            userMapperService.getUserByEmail(email);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println("erreur lors de la récupération de l'utilisateur");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
+
     @GetMapping("/currentUser")
-    public UserDTO getCurrentUser() {
+    public UserAuthDTO getCurrentUser() {
         Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        return userMapperService.getUserByEmail(email);
+
+        UserDTO userDTO = userMapperService.getUserByEmail(email);
+
+        AuthDTO authDTO = new AuthDTO();
+        authDTO.setPseudo(email);
+
+        UserAuthDTO userAuthDTO = new UserAuthDTO();
+        userAuthDTO.setUserDTO(userDTO);
+        userAuthDTO.setAuthDTO(authDTO);
+
+        return userAuthDTO;
     }
 
     @PutMapping("/currentUser/{id}")
