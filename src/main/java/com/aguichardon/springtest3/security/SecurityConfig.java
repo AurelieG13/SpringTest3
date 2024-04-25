@@ -56,19 +56,19 @@ public class SecurityConfig{
                     .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/api/ticketing/**").permitAll()
                     .requestMatchers("/api/users/saveUser").permitAll()
-
+                    .requestMatchers("/api/users/currentUser").permitAll()
                     //Permettre aux rôles EMPLOYE et ADMIN de manipuler les URLs en GET
-                    .requestMatchers(HttpMethod.GET,"/api/users/currentUser").authenticated()
-                    .requestMatchers(HttpMethod.GET, "/api/commande/**").authenticated()
+                    .requestMatchers(HttpMethod.GET,"/api/users/currentUser").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/commande").hasRole("ADMIN")
 
                     //Restreindre la manipulation des méthodes POST, PUT, PATCH et DELETE au rôle ADMIN
                     .requestMatchers(HttpMethod.POST, "/api/sports/create").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/api/sports/save").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/api/sports/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PATCH, "/api/sports/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/api/sports/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.POST, "/api/commande/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/api/commande/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/sports").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PATCH, "/api/sports").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/sports").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/commande").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/commande").hasRole("ADMIN")
 
 
                     //Toutes autres url et méthodes HTTP ne sont pas permises si on met .denyall() au lieu de permitAll()
