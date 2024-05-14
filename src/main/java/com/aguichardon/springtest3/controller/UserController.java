@@ -20,12 +20,10 @@ import java.util.List;
 public class UserController {
 
     private final UserMapperService userMapperService;
-    private final UserRepository userRepository;
     private final UserService userService;
 
     public UserController(UserMapperService userMapperService, UserRepository userRepository, UserService userService) {
         this.userMapperService = userMapperService;
-        this.userRepository = userRepository;
         this.userService = userService;
     }
 

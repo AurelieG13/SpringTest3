@@ -7,6 +7,7 @@ import com.aguichardon.springtest3.model.User;
 import com.aguichardon.springtest3.model.UserAuth;
 import com.aguichardon.springtest3.repository.AuthRepository;
 import com.aguichardon.springtest3.repository.UserRepository;
+import com.aguichardon.springtest3.security.UserAlreadyExistsException;
 import com.aguichardon.springtest3.security.jwt.AuthenticationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,13 @@ public class UserMapperService {
     }
 
     public void saveServiceDTO(UserDTO userDTO, AuthDTO authDTO) {
+
+        User existingUser = userRepository.findByEmail(userDTO.getEmail());
+        if (existingUser != null) {
+            // Utilisateur déjà existant, vous pouvez choisir de gérer cela en conséquence
+            // Par exemple, lever une exception ou mettre à jour les informations de l'utilisateur existant
+            throw new UserAlreadyExistsException("Utilisateur avec le même email déjà enregistré.");
+        }
         //map dto
         User entityUser = modelMapper.map(userDTO, User.class);
         AuthDTO entityAuth = modelMapper.map(authDTO, AuthDTO.class);
